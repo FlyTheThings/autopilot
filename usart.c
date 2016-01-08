@@ -69,7 +69,7 @@ void UART4Init(void){
 
 	USART_InitTypeDef USART_InitStruct;
 
-	USART_InitStruct.USART_BaudRate = 460800;
+	USART_InitStruct.USART_BaudRate = 115200;
 	USART_InitStruct.USART_WordLength = USART_WordLength_8b;
 	USART_InitStruct.USART_StopBits = USART_StopBits_1;
 	USART_InitStruct.USART_Parity = USART_Parity_No ;
