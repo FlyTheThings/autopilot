@@ -115,7 +115,7 @@ void updateControls(void)
 		{
 			aircraft.fp = 57*aircraft.vertSpd/aircraft.airspeed;//approksimoidaan siniä, perusta että 1 rad ~57 astetta
 			des_fp = 57*des_dalt/aircraft.airspeed;
-			aircraft.fpErr = lpfGainErrFp*(des_fp - aircraft.fp) + (1-lpfGainErrFp)*aircraft.fpErr;
+			aircraft.fpErr = lpfGainErrFp*0.01*(des_fp - aircraft.fp) + (1-lpfGainErrFp*0.01)*aircraft.fpErr;
 
 			derr_fp = aircraft.fpErr - err_fp_prev;
 			err_fp_prev = aircraft.fpErr;
@@ -131,7 +131,7 @@ void updateControls(void)
 		if((thrOut >= ((unsigned)maxThr - 50) || aircraft.airspeed <= minAsClb) && des_fp > 0)
 			des_fp = 0;
 
-		des_pitch = lpfGainFp*(kpFp*des_fp + kiFp*ierr_fp + kdFp*derr_fp) + (1-lpfGainFp)*des_pitch; //Lpf is needed to protect the servos
+		des_pitch = lpfGainFp*0.01*(kpFp*des_fp + kiFp*ierr_fp + kdFp*derr_fp) + (1-lpfGainFp*0.01)*des_pitch; //Lpf is needed to protect the servos
 	}
 
 

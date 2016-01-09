@@ -25,7 +25,7 @@ extern unsigned int eeprom_wptsStart; //the first character of the first waypoin
 float kpRoll, kpPitch, kpYaw, kpCrs, kpAs, pitch2thr_mix, kpFp, kpVertSpd, kiRoll, kiPitch, kiYaw, kiCrs, kiFp, kiAs,
 	kdRoll, kdPitch, kdYaw, kdCrs, kdFp, kdAs,
 
-	lpfGainFp, lpfGainErrFp, lpfGainCrs, lpfGainGpsCrs,
+	lpfGainFp, lpfGainErrFp, lpfGainGpsCrs,
 
 	maxVertSpd, minVertSpd, maxAs, minAs, minAsClb, minAsRoll, crzAs, maxBankAbs, maxBankNav, maxPitch, minPitch, roll2ele_mix,
 	vel2ail_mix, vel2ele_mix,

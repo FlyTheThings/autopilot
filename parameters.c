@@ -38,11 +38,10 @@ parameter parameters[] = {
 		{"kdFp", 0, &kdFp},
 		{"kdAs", 0, &kdAs},
 
-		{"lpfGainFp", 0, &lpfGainFp},
-		{"lpfGainErrFp", 0, &lpfGainErrFp},
-		{"lpfGainCrs", 0, &lpfGainCrs},
-		{"lpfGainGpsCrs", 0, &lpfGainGpsCrs},
-
+		//Low-pass filter gain stored as percentiles
+		{"lpfGainFp%", 0, &lpfGainFp},
+		{"lpfGainErrFp%", 0, &lpfGainErrFp},
+		{"lpfGainGps%", 0, &lpfGainGpsCrs},
 
 		{"maxVertSpd", 0, &maxVertSpd},
 		{"minVertSpd", 0, &minVertSpd},
@@ -185,6 +184,7 @@ void saveParameter(char* name, float value, char singleExecute){
 
 void initializeEeprom(void){
 	unsigned int pos = 0;
+	numberOfParameters  = sizeof(parameters) / sizeof(parameters[0]);
 	eepromWriteString("Parameters:\n", pos, 1);
 	pos += 12;
 	delay_ms(10);
@@ -201,7 +201,7 @@ void initializeEeprom(void){
 
 }
 
-//First waypoint number is 0. The data should be in format 00 +60.123456 +024.123456 120
+//First waypoint number is 0. The data should be in format eg. 0 +60.123456 +024.123456 120\n1
 void editWpt(char* data){
 	int number = atoi(data);//the first number is the number.
 	if(number >= numberOfWpts){
@@ -213,7 +213,9 @@ void editWpt(char* data){
 	while(pos < 30000){
 		eepromReadLine(line, &pos);
 		if(atoi(line) == number){
-			eepromWriteString(data, pos-strlen(line), 0);
+			char wpt [40];
+			sprintf(wpt, "%s\n%d ", data, number+1); //Making sure that ther is a newline and a number after every waypoint and that the next number can be rad with atoi.
+			eepromWriteString(wpt, pos-strlen(line), 0);
 			return;
 		}else if(strlen(line) == 0){
 			return;

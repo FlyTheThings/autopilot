@@ -230,7 +230,7 @@ void data_parser(unsigned char h, volatile unsigned char *buf, unsigned char sta
 				gps.crs += 360;
 			else if(gps.crs-aircraft.crs > 180)
 				gps.crs -= 360;
-			aircraft.crs = aircraft.crs*(1-lpfGainGpsCrs) + gps.crs*lpfGainGpsCrs;//alipäästösuodatin pehmentää kurssin muutoksia
+			aircraft.crs = aircraft.crs*(1-lpfGainGpsCrs*0.01) + gps.crs*lpfGainGpsCrs*0.01;//alipäästösuodatin pehmentää kurssin muutoksia
 
 			if(aircraft.crs >= 360)
 				aircraft.crs -= 360;
